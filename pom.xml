@@ -13,6 +13,4 @@
         <module>domain</module>
         <module>store</module>
     </modules>
-
-
 </project>
