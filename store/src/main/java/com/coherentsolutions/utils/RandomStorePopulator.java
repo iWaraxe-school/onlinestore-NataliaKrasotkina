@@ -1,28 +1,14 @@
 package com.coherentsolutions.utils;
 
-import com.github.javafaker.Faker;
+import com.coherentsolutions.domain.Product;
 
 public class RandomStorePopulator {
-    private final Faker faker = new Faker();
+    public static RandomProductGenerator generator = new RandomProductGenerator();
+    public static void showProduct(String category){
+        Product product = generator.generateProduct(category);
+        System.out.println(product);
 
-    public String getProductName(String categoryName) {
-        switch (categoryName) {
-            case "Milk":
-                return faker.food().ingredient();
-            case "Phone":
-                return faker.space().galaxy();
-            case "Bike":
-                return faker.starTrek().character();
-            default:
-                return null;
 
-        }
-    }
-    public Double getPrice() {
-        return faker.number().randomDouble(2, 1, 100);
-    }
 
-    public Double getRate() {
-        return faker.number().randomDouble(1, 1, 10);
     }
 }
