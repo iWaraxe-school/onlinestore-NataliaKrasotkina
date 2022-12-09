@@ -1,11 +1,9 @@
 package com.coherentsolutions.utils;
 
 import com.coherentsolutions.domain.Category;
-import com.coherentsolutions.domain.Product;
 import com.coherentsolutions.store.Store;
 import org.reflections.Reflections;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
