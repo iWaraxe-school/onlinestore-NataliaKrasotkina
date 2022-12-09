@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Category {
     private final String name;
-    private final List<Product> productList;
+    private  List<Product> productList;
 
     public Category(String name) {
         this.name = name;
@@ -17,5 +17,13 @@ public class Category {
     }
     public void printCategoryName(){
         System.out.println(name);
+    }
+
+    public void setProductList (List<Product> productList){
+        this.productList = productList;
+    }
+
+    public String getName() {
+        return name;
     }
 }
