@@ -1,18 +1,24 @@
 package com.coherentsolutions.store;
 
 import com.coherentsolutions.domain.Category;
-import com.coherentsolutions.domain.Product;
-import com.coherentsolutions.utils.RandomStorePopulator;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class Store {
-    private final List<Category> categoryList;
+    private Set<Category> categoryList;
 
     public Store() {
-        this.categoryList = new ArrayList<Category>();
+        this.categoryList = new HashSet<>();
     }
 
+    public void printData() {
+        for (Category category : categoryList) {
+            category.printCategoryName();
+            category.printProducts();
+        }
+    }
+
+    public void setCategoryList(Set<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
 }

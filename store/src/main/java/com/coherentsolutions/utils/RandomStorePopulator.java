@@ -1,28 +1,41 @@
 package com.coherentsolutions.utils;
 
-import com.github.javafaker.Faker;
+import com.coherentsolutions.domain.Category;
+import com.coherentsolutions.store.Store;
+import org.reflections.Reflections;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class RandomStorePopulator {
-    private final Faker faker = new Faker();
+    private Store store;
+    public static RandomProductGenerator generator = new RandomProductGenerator();
 
-    public String getProductName(String categoryName) {
-        switch (categoryName) {
-            case "Milk":
-                return faker.food().ingredient();
-            case "Phone":
-                return faker.space().galaxy();
-            case "Bike":
-                return faker.starTrek().character();
-            default:
-                return null;
+    public RandomStorePopulator(Store store ) {
+        this.store = store;
+    }
 
+    public Set <Category> createCategories () {
+        Set <Category> categories = new HashSet<>();
+        Reflections reflections = new Reflections("com.coherentsolutions.domain.categories");
+        Set<Class<? extends Category >>  subCategoryClasses = reflections.getSubTypesOf(Category.class);
+
+        for (Class<? extends Category> subCategoryClass : subCategoryClasses){
+            try {
+                categories.add(subCategoryClass.getConstructor().newInstance());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-    }
-    public Double getPrice() {
-        return faker.number().randomDouble(2, 1, 100);
+        return categories;
     }
 
-    public Double getRate() {
-        return faker.number().randomDouble(1, 1, 10);
+    public void fillStore() {
+        Set <Category> categories = createCategories();
+
+        for (Category category : categories){
+            category.setProductList(generator.getProducts(category.getName(), 4));
+        }
+        store.setCategoryList(categories);
     }
 }
