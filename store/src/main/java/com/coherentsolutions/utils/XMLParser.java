@@ -8,12 +8,12 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class XMLParser {
     private final static String PATH = "store/src/main/resources/config.xml";
-    private static Map<String, String> fieldToSort = new TreeMap<>();
+    private static Map<String, String> fieldToSort = new LinkedHashMap<>();
 
     public Map<String, String> parseConfig() {
 
