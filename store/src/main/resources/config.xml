@@ -1,5 +1,5 @@
 <sort>
-    <name>asc</name>
-    <price>asc</price>
-    <rate>desc</rate>
+    <name>ASC</name>
+    <price>DESC</price>
+    <rate>DESC</rate>
 </sort>

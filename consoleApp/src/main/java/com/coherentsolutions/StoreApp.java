@@ -11,6 +11,8 @@ public class StoreApp {
         RandomStorePopulator populator = new RandomStorePopulator(store);
         populator.fillStore();
 
+        store.printTopProducts();
         store.printData();
+
     }
 }
