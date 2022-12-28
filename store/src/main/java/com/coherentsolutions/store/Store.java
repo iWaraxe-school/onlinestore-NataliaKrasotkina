@@ -2,7 +2,7 @@ package com.coherentsolutions.store;
 
 import com.coherentsolutions.domain.Category;
 import com.coherentsolutions.domain.Product;
-import com.coherentsolutions.sort.ProductComparator;
+import com.coherentsolutions.sort.ProductComparatorGenerator;
 import com.coherentsolutions.sort.Sorting;
 import com.coherentsolutions.utils.XMLParser;
 
@@ -27,30 +27,45 @@ public class Store {
         this.categoryList = categoryList;
     }
 
-    public List<Product> sort(String field) {
-        List<Product> allProducts = new ArrayList<>();
-        for (Category category : categoryList) {
-            allProducts.addAll(category.getProductList());
-        }
+    public List<Product> sortByXml() {
+        List<Product> allProducts = getAllProducts();
 
         Map<String, String> fieldToSort = XMLParser.parseConfig();
-        String sorting = fieldToSort.get(field);
-        switch (Sorting.valueOf(sorting)) {
-            case ASC:
-                allProducts.sort(ProductComparator.getComparator(field));
-                break;
-            case DESC:
-                allProducts.sort(ProductComparator.getComparator(field).reversed());
-                break;
+        List<Comparator<Product>> comparators = new ArrayList<>();
+        for (Map.Entry<String, String> entry : fieldToSort.entrySet()) {
+            Sorting sorting = Sorting.valueOf(entry.getValue());
+            String field = entry.getKey();
+
+            switch (sorting) {
+                case ASC:
+                    comparators.add(ProductComparatorGenerator.getComparator(field));
+                    break;
+                case DESC:
+                    comparators.add(ProductComparatorGenerator.getComparator(field).reversed());
+                    break;
+            }
         }
 
+        Comparator<Product> generalComparator = comparators.get(0);
+        for (int i = 1; i < comparators.size(); i++) {
+            generalComparator = generalComparator.thenComparing(comparators.get(i));
+        }
+        allProducts.sort(generalComparator);
         return allProducts;
     }
 
     public void printTopProducts() {
-        List<Product> topPriceProducts = sort("price");
+        List<Product> allProducts = getAllProducts();
+        allProducts.sort(Comparator.comparing(Product::getPrice).reversed());
+        System.out.println(allProducts.subList(0, 5));
+    }
 
-        System.out.println(topPriceProducts.subList(0, 5));
+    private List<Product> getAllProducts() {
+        List<Product> allProducts = new ArrayList<>();
+        for (Category category : categoryList) {
+            allProducts.addAll(category.getProductList());
+        }
+        return allProducts;
     }
 
     public void quit() {

@@ -12,7 +12,7 @@ public class StoreApp {
         populator.fillStore();
 
         store.printTopProducts();
+        store.sortByXml();
         store.printData();
-
     }
 }

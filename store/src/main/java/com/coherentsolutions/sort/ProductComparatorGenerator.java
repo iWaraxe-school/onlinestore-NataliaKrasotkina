@@ -4,12 +4,7 @@ import com.coherentsolutions.domain.Product;
 
 import java.util.Comparator;
 
-public class ProductComparator implements Comparator<Product> {
-
-    @Override
-    public int compare(Product o1, Product o2) {
-        return 0;
-    }
+public class ProductComparatorGenerator {
 
     public static Comparator<Product> getComparator(String field) {
         switch (field) {
