@@ -5,7 +5,11 @@ import java.util.List;
 
 public class Category {
     private final String name;
-    private  List<Product> productList;
+    private List<Product> productList;
+
+    public List<Product> getProductList() {
+        return productList;
+    }
 
     public Category(String name) {
         this.name = name;

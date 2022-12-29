@@ -15,7 +15,7 @@ public class XMLParser {
     private final static String PATH = "store/src/main/resources/config.xml";
     private static Map<String, String> fieldToSort = new LinkedHashMap<>();
 
-    public Map<String, String> parseConfig() {
+    public static Map<String, String> parseConfig() {
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
