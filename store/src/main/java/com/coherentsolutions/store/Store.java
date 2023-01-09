@@ -67,8 +67,4 @@ public class Store {
         }
         return allProducts;
     }
-
-    public void quit() {
-        //TODO:Need to clarify how to quit
-    }
 }
