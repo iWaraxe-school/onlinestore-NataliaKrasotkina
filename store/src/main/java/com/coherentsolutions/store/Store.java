@@ -11,9 +11,18 @@ import java.util.*;
 
 public class Store {
     private Set<Category> categoryList;
+    private static Store instance;
 
-    public Store() {
+    private Store() {
         this.categoryList = new HashSet<>();
+    }
+
+    //Singleton
+    public static Store getInstance() {
+        if (instance == null) {
+            instance = new Store();
+        }
+        return instance;
     }
 
     public void printData() {
