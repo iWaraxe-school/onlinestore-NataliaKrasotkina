@@ -10,7 +10,12 @@ public class RandomProductGenerator {
     private final Faker faker = new Faker();
 
     public Product generateProduct(String categoryName) {
-        return new Product(getProductName(categoryName), getPrice(), getRate());
+        Product product = Product.newProductBuilder()
+                .setName(getProductName(categoryName))
+                .setPrice(getPrice())
+                .setRate(getRate())
+                .build();
+        return product;
     }
 
     private String getProductName(String categoryName) {
