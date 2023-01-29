@@ -17,17 +17,18 @@ public class Store {
         this.categoryList = new HashSet<>();
     }
 
-    //Singleton
-
     public static Store getInstance() {
         return instance;
     }
 
-    public void printData() {
-        for (Category category : categoryList) {
-            category.printCategoryName();
-            category.printProducts();
-        }
+    public void createOrder() {
+        Order order = new Order();
+        order.start();
+    }
+
+    public void cleanOrder() {
+        OrderCleaner orderCleaner = new OrderCleaner();
+        orderCleaner.start();
     }
 
     public void setCategoryList(Set<Category> categoryList) {
@@ -67,7 +68,7 @@ public class Store {
         System.out.println(allProducts.subList(0, 5));
     }
 
-    private List<Product> getAllProducts() {
+    public List<Product> getAllProducts() {
         List<Product> allProducts = new ArrayList<>();
         for (Category category : categoryList) {
             allProducts.addAll(category.getProductList());
