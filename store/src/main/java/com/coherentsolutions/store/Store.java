@@ -4,17 +4,21 @@ import com.coherentsolutions.domain.Category;
 import com.coherentsolutions.domain.Product;
 import com.coherentsolutions.sort.ProductComparatorGenerator;
 import com.coherentsolutions.sort.Sorting;
+import com.coherentsolutions.utils.CategoriesDBUtility;
+import com.coherentsolutions.utils.ProductsDBUtility;
 import com.coherentsolutions.utils.XMLParser;
 
 import java.util.*;
 
 
 public class Store {
-    private Set<Category> categoryList;
     private static final Store instance = new Store();
+    private CategoriesDBUtility categoriesDBUtility;
+    private ProductsDBUtility productsDBUtility;
 
     private Store() {
-        this.categoryList = new HashSet<>();
+        categoriesDBUtility = new CategoriesDBUtility();
+        productsDBUtility = new ProductsDBUtility();
     }
 
     public static Store getInstance() {
@@ -31,8 +35,12 @@ public class Store {
         orderCleaner.start();
     }
 
-    public void setCategoryList(Set<Category> categoryList) {
-        this.categoryList = categoryList;
+    public void saveData(Set<Category> categoryList) {
+        categoriesDBUtility.createCategoriesTable();
+        productsDBUtility.createProductsTable();
+        for (Category category : categoryList) {
+            saveCategoryDataInDB(category);
+        }
     }
 
     public List<Product> sortByXml() {
@@ -68,11 +76,21 @@ public class Store {
         System.out.println(allProducts.subList(0, 5));
     }
 
+    public void printAllProducts() {
+        List<Product> allProducts = getAllProducts();
+        System.out.println(allProducts);
+    }
+
     public List<Product> getAllProducts() {
-        List<Product> allProducts = new ArrayList<>();
-        for (Category category : categoryList) {
-            allProducts.addAll(category.getProductList());
+        return productsDBUtility.getAllProducts();
+    }
+
+    private void saveCategoryDataInDB(Category category) {
+        categoriesDBUtility.addCategoryEntry(category);
+        int categoryId = categoriesDBUtility.getCategoryId(category);
+
+        for (Product product : category.getProductList()) {
+            productsDBUtility.addProductEntry(product, categoryId);
         }
-        return allProducts;
     }
 }

@@ -1,22 +1,23 @@
 package com.coherentsolutions.store;
 
 
+import java.util.concurrent.TimeUnit;
+
 public class OrderCleaner extends Thread {
 
     @Override
     public void run() {
         while (true) {
             cleanProcessWait();
-            ShoppingCart.clearShoppingCart();
+            ShoppingCart.getInstance().clearShoppingCart();
         }
     }
 
     private void cleanProcessWait() {
         try {
-            Thread.sleep(2 * 60 * 1000);
+            TimeUnit.MINUTES.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }
