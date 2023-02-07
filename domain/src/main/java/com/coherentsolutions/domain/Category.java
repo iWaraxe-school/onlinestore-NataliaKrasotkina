@@ -16,13 +16,6 @@ public class Category {
         this.productList = new ArrayList<Product>();
     }
 
-    public void printProducts() {
-        System.out.println(productList);
-    }
-    public void printCategoryName(){
-        System.out.println(name);
-    }
-
     public void setProductList (List<Product> productList){
         this.productList = productList;
     }

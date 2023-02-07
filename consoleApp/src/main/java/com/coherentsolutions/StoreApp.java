@@ -31,6 +31,9 @@ public class StoreApp {
                 case "top":
                     store.printTopProducts();
                     break;
+                case "print all":
+                    store.printAllProducts();
+                    break;
                 case "create order":
                     store.createOrder();
                     if (!isOrderCleanerOn) {

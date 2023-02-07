@@ -36,6 +36,6 @@ public class RandomStorePopulator {
         for (Category category : categories){
             category.setProductList(generator.getProducts(category.getName(), 4));
         }
-        store.setCategoryList(categories);
+        store.saveData(categories);
     }
 }
