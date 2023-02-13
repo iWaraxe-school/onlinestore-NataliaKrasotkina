@@ -2,10 +2,13 @@ package com.coherentsolutions;
 
 import com.coherentsolutions.store.Store;
 import com.coherentsolutions.utils.RandomStorePopulator;
+import com.coherentsolutions.utils.http.Client;
+import com.coherentsolutions.utils.http.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 
 
 public class StoreApp {
@@ -20,6 +23,13 @@ public class StoreApp {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         boolean isRunning = true;
         boolean isOrderCleanerOn = false;
+
+        Server server = new Server();
+        server.startServer();
+        Client client = new Client();
+        HttpURLConnection connection = client.getConnection("/categories", "GET");
+        connection.getInputStream();
+        connection.disconnect();
 
 
         while (isRunning) {
