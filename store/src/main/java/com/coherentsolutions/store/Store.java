@@ -85,6 +85,10 @@ public class Store {
         return productsDBUtility.getAllProducts();
     }
 
+    public List<String> getAllCategoriesNames() {
+        return categoriesDBUtility.getAllCategoriesNames();
+    }
+
     private void saveCategoryDataInDB(Category category) {
         categoriesDBUtility.addCategoryEntry(category);
         int categoryId = categoriesDBUtility.getCategoryId(category);
