@@ -8,7 +8,6 @@ import com.coherentsolutions.utils.http.Server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 
 
 public class StoreApp {
@@ -27,13 +26,10 @@ public class StoreApp {
         Server server = new Server();
         server.startServer();
         Client client = new Client();
-        HttpURLConnection connection = client.getConnection("/categories", "GET");
-        connection.getInputStream();
-        connection.disconnect();
-
+        client.makeCategoriesRequest();
 
         while (isRunning) {
-            System.out.print("Please enter command: ");
+            System.out.println("Please enter command: ");
             switch (bufferedReader.readLine()) {
                 case "sort":
                     store.sortByXml();
@@ -45,7 +41,7 @@ public class StoreApp {
                     store.printAllProducts();
                     break;
                 case "create order":
-                    store.createOrder();
+                    client.makeCreateOrderRequest();
                     if (!isOrderCleanerOn) {
                         store.cleanOrder();
                         isOrderCleanerOn = true;
