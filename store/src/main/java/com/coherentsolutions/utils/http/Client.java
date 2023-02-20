@@ -28,4 +28,25 @@ public class Client {
         }
         return connection;
     }
+
+    public void makeCategoriesRequest() {
+        HttpURLConnection connection = getConnection("/categories", "GET");
+        try {
+            connection.getInputStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        connection.disconnect();
+    }
+
+    public void makeCreateOrderRequest() {
+        HttpURLConnection connection = getConnection("/newOrder", "POST");
+        try {
+            connection.getInputStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        connection.disconnect();
+
+    }
 }

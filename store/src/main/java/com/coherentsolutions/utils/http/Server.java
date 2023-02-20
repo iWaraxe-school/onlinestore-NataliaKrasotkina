@@ -19,6 +19,7 @@ public class Server {
         try {
             HttpServer httpServer = HttpServer.create(new InetSocketAddress(PORT), 0);
             createContext(httpServer, "/categories", new CategoriesHandler());
+            createContext(httpServer, "/newOrder", new OrderHandler());
             ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
             httpServer.setExecutor(threadPoolExecutor);
             httpServer.start();
